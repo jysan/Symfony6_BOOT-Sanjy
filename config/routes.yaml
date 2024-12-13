@@ -1,0 +1,45 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+    
+admin_user_index:
+    path: /admin/users
+    controller: App\Controller\AdminController::index
+
+admin_user_new:
+    path: /admin/user/new
+    controller: App\Controller\AdminController::new
+
+admin_user_edit:
+    path: /admin/user/{id}/edit
+    controller: App\Controller\AdminController::edit
+
+admin_user_delete:
+    path: /admin/user/{id}/delete
+    controller: App\Controller\AdminController::delete
+
+admin_reservation_index:
+    path: /admin/reservations
+    controller: App\Controller\AdminController::listReservations
+
+admin_reservation_edit:
+    path: /admin/reservation/{id}/edit
+    controller: App\Controller\AdminController::editReservation
+
+admin_reservation_delete:
+    path: /admin/reservation/{id}/delete
+    controller: App\Controller\AdminController::deleteReservation
+
+user_profile:
+    path: /user/profile
+    controller: App\Controller\UserController::profile
+
+user_reservation_new:
+    path: /user/reservation/new
+    controller: App\Controller\UserController::createReservation
+
+user_reservation_history:
+    path: /user/reservations
+    controller: App\Controller\UserController::reservationHistory

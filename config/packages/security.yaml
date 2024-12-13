@@ -1,0 +1,39 @@
+security:
+    # Configuration des hashers de mots de passe
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    # Configuration des fournisseurs d'utilisateurs
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    # Définition des firewalls (parties de votre application protégées)
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            pattern: ^/
+            form_login:
+                login_path: app_login       # Utilisez "app_login" comme nom de la route de connexion
+                check_path: app_login
+                default_target_path: homepage
+            logout:
+                path: app_logout           # Utilisez "app_logout" pour la route de déconnexion
+                target: homepage
+            remember_me: ~
+
+    # Contrôle d'accès: configurez les restrictions d'accès en fonction des rôles
+    access_control:
+        # Accès réservé aux administrateurs
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # Accès réservé aux utilisateurs connectés pour leurs pages personnelles
+        - { path: ^/user, roles: ROLE_USER }
+        # Accès aux pages publiques comme login
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
